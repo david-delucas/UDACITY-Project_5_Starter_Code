@@ -78,22 +78,45 @@ it('lets user2 buy a star and decreases its balance in ether', async() => {
 it('can add the star name and star symbol properly', async() => {
     // 1. create a Star with different tokenId
     //2. Call the name and symbol properties in your Smart Contract and compare with the name and symbol provided
+    let tokenId = 123;
+    let instance = await StarNotary.deployed();
+    await instance.createStar('TestStar', tokenId, {from: accounts[0]})
+    let star = await instance.tokenIdToStarInfo.call(tokenId)
+    assert.equal(star, 'TestStar')
+
 });
 
 it('lets 2 users exchange stars', async() => {
     // 1. create 2 Stars with different tokenId
     // 2. Call the exchangeStars functions implemented in the Smart Contract
     // 3. Verify that the owners changed
+    let instance = await StarNotary.deployed();
+    let usr1 = accounts[1];
+    let usr2 = accounts[2];
+    await instance.createStar('Star1', 11, {from: usr1});
+    await instance.createStar('Star2', 12, {from: usr2});
+    await instance.exchangeStars(11, 12, {from: usr1});
+    assert.equal(await instance.ownerOf.call(11), usr2);
+    assert.equal(await instance.ownerOf.call(12), usr1);
 });
 
 it('lets a user transfer a star', async() => {
     // 1. create a Star with different tokenId
     // 2. use the transferStar function implemented in the Smart Contract
     // 3. Verify the star owner changed.
+    let instance = await StarNotary.deployed();
+    let usr1 = accounts[1];
+    let usr2 = accounts[2];
+    await instance.createStar('TestStar', 123, {from: usr1});
+    await instance.transferStar(user2, 123, {from: usr1});
+    assert.equal(await instance.ownerOf.call(123), usr2);    
 });
 
 it('lookUptokenIdToStarInfo test', async() => {
     // 1. create a Star with different tokenId
     // 2. Call your method lookUptokenIdToStarInfo
     // 3. Verify if you Star name is the same
+    let instance = await StarNotary.deployed();
+    await instance.createStar('TestStar', 123);
+    assert.equal(await instance.lookUptokenIdToStarInfo(123), 'TestStar');    
 });
