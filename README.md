@@ -1,28 +1,19 @@
-## Instructions
+# Truffle version 
 
-Open the package-lock.json and verify that truffle-hdwallet-provider and openzeppelin-solidity dependencies are installed. If not you can always install it with the commands:
+Truffle v5.1.11 (core: 5.1.11)
 
-- npm install --save truffle-hdwallet-provider
+# OpenZeppelin version
 
-- npm install --save openzeppelin-solidity
+"version": "2.1.2"
 
-For starting the development console, run:
+# ERC-721 Token Name
 
-- truffle develop
+starnotary
 
-For compiling the contract, inside the development console, run:
+# ERC-721 Token Symbol
 
-- compile
+STRN
 
-For migrating the contract to the locally running Ethereum network, inside the development console, run:
+# “Token Address” on the Rinkeby Network
 
-- migrate --reset
-
-For running unit tests the contract, inside the development console, run:
-
-- test
-
-For running the Front End of the DAPP, open another terminal window and go inside the project directory, and run:
-
-- cd app
-- npm run dev
+0x5a24189dd34C227Be40987507697269fBbD9e61E
